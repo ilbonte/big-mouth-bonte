@@ -1,8 +1,16 @@
 service: big-mouth-bonte
 
+plugins:
+  - serverless-pseudo-parameters
+
 provider:
   name: aws
   runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action: dynamodb:scan
+      Resource: arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/restaurants-bonte
+
 
 functions:
   get-index:
@@ -11,3 +19,28 @@ functions:
       - http:
           path: /
           method: get
+  
+  get-restaurants:
+    handler: functions/get-restaurants.handler
+    events:
+      - http:
+          path: /restaurants/
+          method: get
+    environment:
+      restaurants_table: restaurants-bonte
+
+resources:
+  Resources:
+    restaurantsTableBonte:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: restaurants-bonte
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
