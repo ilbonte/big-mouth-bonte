@@ -1,0 +1,1 @@
+Solving the exercise of https://www.manning.com/livevideo/production-ready-serverless
