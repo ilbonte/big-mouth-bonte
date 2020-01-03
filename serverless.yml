@@ -5,7 +5,7 @@ provider:
   runtime: nodejs12.x
 
 functions:
-  hello:
+  get-index:
     handler: functions/get-index.handler
     events:
       - http:
