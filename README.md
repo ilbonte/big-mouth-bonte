@@ -1,1 +1,1 @@
-Solving the exercise of https://www.manning.com/livevideo/production-ready-serverless
+Serverless app example built during the "Production-Ready Serverless" course by Yan Cui https://www.manning.com/livevideo/production-ready-serverless solved using modern javascript and new librares 
