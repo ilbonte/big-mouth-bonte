@@ -36,6 +36,17 @@ functions:
     environment:
       restaurants_table: restaurants-bonte
 
+  search-restaurants:
+    handler: functions/search-restaurants.handler
+    events:
+      - http:
+          path: /restaurants/search
+          method: post
+          authorizer:
+            arn: arn:aws:cognito-idp:eu-west-1:684411073013:userpool/eu-west-1_bzAT79AV4
+    environment:
+      restaurants_table: restaurants
+
 resources:
   Resources:
     restaurantsTableBonte:
