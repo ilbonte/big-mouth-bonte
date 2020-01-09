@@ -8,6 +8,10 @@ const Mustache = require('mustache');
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const restaurantsApiRoot = process.env.restaurants_api;
 
+const awsRegion = process.env.AWS_REGION;
+const cognitoUserPoolId = process.env.cognito_user_pool_id;
+const cognitoClientId = process.env.cognito_client_id;
+
 async function loadHtml() {
   return await fs.readFile('./static/index.html', 'utf-8')
 }
@@ -17,7 +21,17 @@ module.exports.handler = async event => {
   let template = await loadHtml();
   let restaurants = await getRestaurants()
   let dayOfWeek = days[new Date().getDay()];
-  let html = Mustache.render(template, { dayOfWeek, restaurants });
+
+  let view = {
+    awsRegion,
+    cognitoUserPoolId,
+    cognitoClientId,
+    dayOfWeek,
+    restaurants,
+    searchUrl: `${restaurantsApiRoot}/search`
+  };
+
+  let html = Mustache.render(template, view);
   return {
     statusCode: 200,
     body: html,
