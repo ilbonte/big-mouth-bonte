@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/test-cases --reporter spec"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,10 @@
   },
   "devDependencies": {
     "aws-sdk": "^2.597.0",
+    "awscred": "^1.5.0",
     "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "lodash": "^4.17.15",
     "mocha": "^7.0.0"
   }
 }

@@ -17,7 +17,7 @@ async function loadHtml() {
 }
 
 
-module.exports.handler = async event => {
+module.exports.handler = async (event, context, callback) => {
   let template = await loadHtml();
   let restaurants = await getRestaurants()
   let dayOfWeek = days[new Date().getDay()];
@@ -32,13 +32,16 @@ module.exports.handler = async event => {
   };
 
   let html = Mustache.render(template, view);
-  return {
+
+  const response = {
     statusCode: 200,
     body: html,
     headers: {
       'Content-Type': 'text/html; charset=UTF-8'
     }
   };
+
+  callback(null, response)
 };
 
 async function getRestaurants() {
@@ -51,13 +54,17 @@ async function getRestaurants() {
   aws4.sign(opts)
 
   try {
+    let headers = {
+      "Host": opts.headers["Host"],
+      "X-Amz-Date": opts.headers["X-Amz-Date"],
+      "Authorization": opts.headers["Authorization"]
+    }
+
+    if (opts.headers["X-Amz-Security-Token"])
+      headers["X-Amz-Security-Token"] = opts.headers["X-Amz-Security-Token"]
+
     const response = await axios.get(restaurantsApiRoot, {
-      headers: {
-        "Host": opts.headers["Host"],
-        "X-Amz-Date": opts.headers["X-Amz-Date"],
-        "Authorization": opts.headers["Authorization"],
-        "X-Amz-Security-Token": opts.headers["X-Amz-Security-Token"]
-      }
+      headers
     });
     return response.data
   } catch (error) {
