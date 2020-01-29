@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "mocha tests/test-cases --reporter spec"
+    "test-integration": "env TEST_MODE=handler mocha tests/test-cases --reporter spec"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,8 @@
     "cheerio": "^1.0.0-rc.3",
     "lodash": "^4.17.15",
     "mocha": "^7.0.0",
-    "serverless": "^1.61.2"
+    "serverless": "^1.61.2",
+    "superagent": "^5.2.1",
+    "superagent-promise": "^1.1.0"
   }
 }

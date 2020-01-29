@@ -10,7 +10,7 @@ describe(`When we invoke the POST /restaurants/search endpoint with theme 'carto
     })
 
     it("Should return an array of 4 restaurants", async function () {
-        let res = await when.we_invoke_search_restaurants('cartoon');
+        let res = await when.we_invoke_search_restaurants({ idToken: "todo" }, 'cartoon');
 
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.have.lengthOf(4);

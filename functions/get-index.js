@@ -37,7 +37,7 @@ module.exports.handler = async (event, context, callback) => {
     statusCode: 200,
     body: html,
     headers: {
-      'Content-Type': 'text/html; charset=UTF-8'
+      'content-type': 'text/html; charset=UTF-8'
     }
   };
 
