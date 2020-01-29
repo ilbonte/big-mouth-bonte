@@ -17,10 +17,12 @@ async function getRestaurants(count) {
   return resp.Items;
 }
 
-module.exports.handler = async event => {
+module.exports.handler = async (event, context, callback) => {
   const restaurants = await getRestaurants(defaultResults)
-  return {
+  const response = {
     statusCode: 200,
     body: JSON.stringify(restaurants)
   };
+
+  callback(null, response)
 };
