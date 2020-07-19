@@ -21,7 +21,7 @@
     "chai": "^4.2.0",
     "chance": "^1.1.4",
     "cheerio": "^1.0.0-rc.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mocha": "^7.0.0",
     "serverless": "^1.61.2",
     "superagent": "^5.2.1",
